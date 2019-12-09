@@ -33,11 +33,8 @@ class HasPtr
 
 int main()
 {
-
 	std::string s{"hello"};
-	
 	HasPtr hp{s};
-
 	HasPtr hp2 = hp; //initialize with copy assignment operator
 
 }
