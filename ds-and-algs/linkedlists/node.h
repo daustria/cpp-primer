@@ -1,8 +1,13 @@
 #ifndef NODE_H
 #define NODE_H
 #include <iostream>
+
+class LinkedList;
+
 class Node
 {
+	friend class LinkedList;
+
 	public:
 		Node();
 		Node(int val, Node *n = nullptr);

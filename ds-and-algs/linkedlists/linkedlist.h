@@ -3,11 +3,14 @@
 
 class LinkedList
 {
+
 	friend std::ostream &operator<<(std::ostream &, const LinkedList &);
+
 	public:
-		int insert(int);
+		LinkedList();
+		int addToFront(int);
 		int remove(int);
-		int getValue(int);
+		int ith(int);
 
 	private:
 		Node *head;

@@ -24,10 +24,15 @@ Node::~Node()
 	delete next;
 }
 
-Node::Node(Node &&rhs): data(rhs.data), next(rhs.next) {}
+Node::Node(Node &&rhs): data(rhs.data), next(rhs.next) 
+{
+	std::cout << "move constructor " << std::endl;
+
+}
 
 Node &Node::operator=(Node &&rhs) 
 {
+	std::cout << "move assginment" << std::endl;
 	if (this != &rhs)
 	{
 		data = rhs.data;
