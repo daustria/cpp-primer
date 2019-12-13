@@ -9,8 +9,11 @@ int main()
 	ll.addToFront(7);
 	ll.addToFront(-3);
 	ll.addToFront(0);
-
+	ll.addToFront(20);
+	ll.addToFront(-7);
 
 	for (int &x : ll)
-		cout << x << endl;
+		++x;
+
+	cout << ll << endl;
 }
