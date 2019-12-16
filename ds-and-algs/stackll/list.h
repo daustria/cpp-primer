@@ -6,6 +6,8 @@ class List
 {
 	struct Node;
 	Node *head = nullptr;
+	Node *tail = nullptr;
+	int size = 0;
 
 	public:
 		class Iterator{
@@ -22,6 +24,11 @@ class List
 		Iterator end() const;
 
 		void addToFront(int);
+		void addToBack(int);
+
+		int removeFront(int);
+		int removeBack(int);
+
 		int ith(int);
 		int remove(int);
 		bool empty() const;

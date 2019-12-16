@@ -6,9 +6,10 @@ struct List::Node
 {
 	int data;
 	Node *next = nullptr;
+	Node *back = nullptr;
 
 	Node() = default;
-	Node(int n, Node *np) : data(n), next(np) {}
+	Node(int n, Node *f, Node *b) : data(n), next(f), back(b){}
 	~Node() { delete next; }
 };
 
@@ -48,8 +49,18 @@ List::~List()
 
 void List::addToFront(int n)
 {
-	Node *np = new Node(n, head);
+	Node *np = new Node(n, head, nullptr);
+	if (head) 
+		tail = np;
 	head = np;
+}
+
+void List::addToBack(int n)
+{
+	Node *np = new Node(n, nullptr, tail);
+	if (tail) 
+		head = np;
+	tail = np;
 }
 
 int List::ith(int i)

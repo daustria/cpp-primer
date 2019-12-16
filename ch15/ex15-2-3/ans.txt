@@ -1,0 +1,42 @@
+//Exercise 15.8
+/*
+ * Given an lvalue, a static type of an lvalue is the type known
+ * to the compiler at compile time. It is the type a variable
+ * is declared with.
+ *
+ * The dynamic type is the type of the value that the variable represents
+ * This type may not be known to the compiler until runtime, especially
+ * in the context of class hierarchies.
+ *
+ * For instance, suppose class D inherits from the base class B.
+ *
+ * >>> B* b = D();
+ *
+ * The static type of the variable b is of the base class B,
+ * and the dynamic type is of type D.
+ * 
+ *
+ */
+
+//Exercise 15.9
+/*
+ *
+ * const double PI = 3.14159;
+ *
+ *
+ * Let classes B and D be as in exercise 15.8.
+ *
+ * ex1)
+ * B* b = D(); //Base pointer to derived instance
+ *
+ * ex2)
+ * D d;
+ * B &b = d; //base reference to derived instance
+ *
+ * ex3)
+ * Let C be a class inheriting from D.
+ *
+ * D &c = D(); 
+ *
+ *
+ */
