@@ -4,7 +4,7 @@
 
 struct List::Node
 {
-	int data;
+	int data = 0;
 	Node *next = nullptr;
 	Node *back = nullptr;
 
@@ -49,23 +49,36 @@ List::~List()
 
 void List::addToFront(int n)
 {
-	Node *np = new Node(n, head, nullptr);
-	if (head) 
+	Node *np = new Node(n, nullptr, nullptr);
+
+	if (empty()) {
+		head = np;
 		tail = np;
-	head = np;
+	} else {
+		np->next = head;
+		head->back = np;
+		head = np;
+	}
+	++size;
 }
 
 void List::addToBack(int n)
 {
-	Node *np = new Node(n, nullptr, tail);
-	if (tail) 
+	Node *np = new Node(n, nullptr, nullptr);
+
+	if (empty()) {
 		head = np;
-	tail = np;
+		tail = np;
+	} else {
+		np->back = tail;
+		tail->next = np;
+		tail = np;
+	}
+	++size;
 }
 
 int List::ith(int i)
 {
-
 	Node *current = head;
 
 	while(i > 0)
@@ -77,35 +90,51 @@ int List::ith(int i)
 	return current->data;
 }
 
-int List::remove(int i)
+int List::removeFront()
 {
-	Node *current = head;
-	Node *prev = nullptr;
-	while (i > 0)
-	{
-		prev = current;
-		current = current->next;
-		--i;
+	Node *np = head;
+	int retval = np->data;
+
+	if (head->next) {
+		head = head->next;
+		head->back = nullptr;
+	} else {
+		tail = head = nullptr;
 	}
 
-	int retval = current->data;
+	np->next = np->back = nullptr;
+	delete np;
+	--size;
+	return retval;
 
-	if (prev) 
-		prev->next = current->next;
-	else
-		head = current->next;
+}
 
-	current = nullptr;
-	delete current;
+int List::removeBack()
+{
+	Node *np = tail;
+	int retval = np->data;
 
+	if (tail->back) {
+		tail = tail->back;
+		tail->next = nullptr;
+	} else {
+		tail = head = nullptr;
+	}
+	np->next = np->back = nullptr;
+	delete np;
+	--size;
 	return retval;
 }
 
 bool List::empty() const
 {
-	return head ? false : true;
+	return size == 0;
 }
 
+int List::getSize() const
+{
+	return size;
+}
 
 std::ostream &operator<<(std::ostream &out, const List &ll)
 {

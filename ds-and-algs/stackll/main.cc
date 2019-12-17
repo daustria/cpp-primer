@@ -3,10 +3,11 @@
 
 int main()
 {
-	List ll;
-	ll.addToFront(3);
-	ll.addToFront(5);
+	IntStack s;
 
-	std::cout << ll << std::endl;
+	s.push(3);
+//	s.push(5);
+	s.pop();
 
+	std::cout << s << std::endl;
 }

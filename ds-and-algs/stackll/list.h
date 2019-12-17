@@ -10,6 +10,8 @@ class List
 	int size = 0;
 
 	public:
+
+		~List();
 		class Iterator{
 			public:
 				Iterator(Node *);
@@ -26,13 +28,13 @@ class List
 		void addToFront(int);
 		void addToBack(int);
 
-		int removeFront(int);
-		int removeBack(int);
+		int removeFront();
+		int removeBack();
 
 		int ith(int);
 		int remove(int);
 		bool empty() const;
-		~List();
+		int getSize() const;
 };
 
 std::ostream &operator<<(std::ostream &, const List &);

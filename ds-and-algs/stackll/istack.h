@@ -6,10 +6,12 @@
 class IntStack
 {
 
+	friend std::ostream &operator<<(std::ostream &, const IntStack &);
 	public:
 		void push(int);
 		int pop();
-		bool empty();
+		bool empty() const;
+		int size() const;
 	private:
 		List ll;
 
@@ -17,4 +19,4 @@ class IntStack
 
 std::ostream &operator<<(std::ostream &, const IntStack &);
 
-#endif // INT_STACK_H
+#endif // INT_STACK_h
