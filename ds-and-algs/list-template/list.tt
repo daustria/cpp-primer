@@ -1,0 +1,151 @@
+#include <iostream>
+#include "list.h"
+#include <string>
+
+
+template <typename T>
+struct List<T>::Node
+{	
+	T data = 0;
+	Node *next = nullptr;
+	Node *back = nullptr;
+
+	Node() = default;
+	Node(const T &t, Node *f, Node *b) : data(t), next(f), back(b){}
+	~Node() { delete next; }
+};
+
+template<typename T>
+List<T>::Iterator::Iterator(Node *np): p(np) {}
+
+template<typename T>
+typename List<T>::Iterator List<T>::Iterator::operator++()
+{
+	p = p->next;
+	return *this;
+}
+
+template<typename T>
+T &List<T>::Iterator::operator*() { return p->data ; }
+
+template<typename T>
+bool List<T>::Iterator::operator!=(const List<T>::Iterator &other) { return p != other.p; }
+
+template<typename T>
+typename List<T>::Iterator List<T>::begin() const { return List<T>::Iterator{head}; }
+
+template<typename T>
+typename List<T>::Iterator List<T>::end() const { return List<T>::Iterator{nullptr}; }
+
+template <typename T>
+List<T>::~List<T>() { delete head; }
+
+template <typename T>
+void List<T>::addToFront(const T &t)
+{
+	Node *np = new Node(t, nullptr, nullptr);
+
+	if (empty()) {
+		head = np;
+		tail = np;
+	} else {
+		np->next = head;
+		head->back = np;
+		head = np;
+	}
+	++size;
+}
+
+template <typename T>
+void List<T>::addToBack(const T &t)
+{
+	Node *np = new Node(t, nullptr, nullptr);
+
+	if (empty()) {
+		head = np;
+		tail = np;
+	} else {
+		np->back = tail;
+		tail->next = np;
+		tail = np;
+	}
+	++size;
+}
+
+template <typename T>
+const T &List<T>::ith(int i)
+{
+	Node *current = head;
+
+	while(i > 0)
+	{
+		current = current->next;
+		--i;	
+	}
+
+	return current->data;
+}
+
+template <typename T>
+T &List<T>::removeFront()
+{
+	Node *np = head;
+	T &retval = np->data;
+
+	if (head->next) {
+		head = head->next;
+		head->back = nullptr;
+	} else {
+		tail = head = nullptr;
+	}
+
+	np->next = np->back = nullptr;
+	delete np;
+	--size;
+	return retval;
+}
+
+template <typename T>
+T &List<T>::removeBack()
+{
+	Node *np = tail;
+	T &retval = np->data;
+
+	if (tail->back) {
+		tail = tail->back;
+		tail->next = nullptr;
+	} else {
+		tail = head = nullptr;
+	}
+	np->next = np->back = nullptr;
+	delete np;
+	--size;
+	return retval;
+}
+
+template <typename T>
+bool List<T>::empty() const
+{
+	return size == 0;
+}
+
+template <typename T>
+int List<T>::getSize() const
+{
+	return size;
+}
+
+template <typename T>
+std::ostream &operator<<(std::ostream &out, const List<T> &ll)
+{
+	if (ll.empty()) {
+		out << "empty";
+		return out;
+	}
+
+	for (auto const &x : ll)
+		out << x << ',';
+
+	out << '\b' << ".";
+	return out;
+}
